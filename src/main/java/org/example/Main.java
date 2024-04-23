@@ -1,13 +1,12 @@
 package org.example;
-import org.example.Models.Cajas;
-import org.example.Models.Inventario;
-import org.example.Models.Productos;
-import org.example.Models.Ventas;
+import org.example.Models.*;
+
 import java.util.Scanner;
 public class Main{
     public static void main(String[] args) {
         try (Scanner keyboard = new Scanner(System.in)) {
             boolean ban = true;
+            Listas listas = new Listas();
             Cajas cajas = new Cajas();
             Inventario inv = new Inventario();
             Productos prod = new Productos();
@@ -19,7 +18,7 @@ public class Main{
                 String option = keyboard.next();
                 switch (option) {
                     case "1":
-                        if (!cajas.getListC().isEmpty()) {
+                        if (!listas.getListC().isEmpty()) {
                             boolean ban2 = true;
                             do {
                                 System.out.println("Caja");
@@ -40,9 +39,9 @@ public class Main{
                                             double precio = keyboard.nextDouble();
                                             Productos productos = new Productos(nombre, precio);
                                             Inventario inventario = new Inventario(nombre, cantidad);
-                                            if (!inv.getListI().contains(inventario) || !prod.getListP().contains(productos)) {
-                                                inv.getListI().add(inventario);
-                                                prod.getListP().add(productos);
+                                            if (!listas.getListI().contains(inventario) || !listas.getListP().contains(productos)) {
+                                                listas.getListI().add(inventario);
+                                                listas.getListP().add(productos);
                                             }else{System.out.println("Este articulo ya existe");}
                                             System.out.println("Quiere agregar otro?");
                                             String option3 = keyboard.next();
@@ -58,9 +57,9 @@ public class Main{
                                             String nombrev = keyboard.next();
                                             System.out.println("Ingrese el cantidad a vender");
                                             int cantidadv = keyboard.nextInt();
-                                            for (Productos ver : prod.getListP()) {
+                                            for (Productos ver : listas.getListP()) {
                                                 if (ver.getNombre().equals(nombrev)) {
-                                                    for (Inventario item : inv.getListI()) {
+                                                    for (Inventario item : listas.getListI()) {
                                                         if (item.getProducto().equals(nombrev)) {
                                                             int cantres = item.getCantidad();
                                                             cantres = cantres - cantidadv;
@@ -68,7 +67,7 @@ public class Main{
                                                             double venderp = ver.getPrecio();
                                                             venderp = venderp * cantidadv;
                                                             Ventas venta = new Ventas(nombrev, venderp);
-                                                            ventas.getListV().add(venta);
+                                                            listas.getListV().add(venta);
                                                             System.out.println("Venta exitosa");
                                                         }
                                                     }
@@ -81,7 +80,7 @@ public class Main{
                                         } while (ban4);
                                         break;
                                     case "3":
-                                        for (Inventario items : inv.getListI()) {
+                                        for (Inventario items : listas.getListI()) {
                                             System.out.println(items.toString());
                                         }
                                         break;
@@ -106,7 +105,7 @@ public class Main{
                             String option2 = keyboard.next();
                             switch (option2) {
                                 case "1":
-                                    for (Ventas ven : ventas.getListV()) {
+                                    for (Ventas ven : listas.getListV()) {
                                         System.out.println(ven.toString());
                                     }
                                     break;
@@ -120,10 +119,10 @@ public class Main{
                                             int numc = keyboard.nextInt();
                                             boolean abierto = true;
                                             Cajas caja = new Cajas(numc, abierto);
-                                            cajas.getListC().add(caja);
+                                            listas.getListC().add(caja);
                                             abrir = false;
                                         }else{
-                                            abrir = false;
+                                              abrir = false;
                                         }
                                     } while (abrir);
                                     break;

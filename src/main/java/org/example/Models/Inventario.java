@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Inventario {
     private String producto;
     private int cantidad;
-    private ArrayList <Inventario> listI = new ArrayList<Inventario>();
     public Inventario(String producto, int cantidad) {
         this.producto = producto;
         this.cantidad = cantidad;
@@ -21,12 +20,7 @@ public class Inventario {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    public ArrayList<Inventario> getListI() {
-        return listI;
-    }
-    public void setListI(ArrayList<Inventario> listI) {
-        this.listI = listI;
-    }
+
     public Inventario() {
     }
     @Override
